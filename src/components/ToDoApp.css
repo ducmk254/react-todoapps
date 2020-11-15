@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Courier New', Courier, monospace;
+    border: 0px solid #575757;
+}
+.container{
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid #57918c;
+}

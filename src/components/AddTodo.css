@@ -1,0 +1,26 @@
+.addTodo{
+    margin: 10px 0px;  
+    display: flex;
+    flex-wrap: nowrap;
+    border-top: 1px solid #57918c;
+    border-bottom: 1px solid #57918c;
+}
+.addTodo input[type='text']{
+    flex-grow: 8;
+    padding: 10px;
+    border: 0px solid #57918c;
+    border-right: 0px;
+}
+.addTodo button{
+    flex-grow: 2;
+    padding: 10px;
+    border-left: 1px solid #57918c;
+    cursor: pointer;
+}
+.addTodo input[type='text']:focus , .addTodo button:focus{
+    outline: none;
+}
+.addTodo button:hover{
+    background-color: rgb(228, 185, 46);
+    font-weight: bold;
+}
