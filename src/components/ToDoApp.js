@@ -13,18 +13,29 @@ class ToDoApp extends React.Component {
     this.state = {
       todos: [],
     };
-
-    this.changeCheckboxInput = this.changeCheckboxInput.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-    this.addNewTodo = this.addNewTodo.bind(this);
+    this.changeCheckboxInput = this.changeCheckboxInput.bind(this); // Khai bao nhu the nay de khi khai bao changeCheckboxInput nhu method thong thuong ma khong can changeCheckboxInput = ()=>{}
+    this.deleteTodo = this.deleteTodo.bind(this); // Khai bao nhu the nay de khi khai bao deleteTodo nhu method thong thuong ma khong can deleteTodo = ()=>{}
+    this.addNewTodo = this.addNewTodo.bind(this); // Khai bao nhu the nay de khi khai bao addNewTodo nhu method thong thuong ma khong can addNewTodo = ()=>{}
   }
-  changeCheckboxInput = (id) => {
+  changeCheckboxInput = async (id) => {
     this.setState({
       todos: this.state.todos.map((todo) => {
         if (todo.id === id) todo.completed = !todo.completed;
         return todo;
       }),
     });
+    let curTodo = await axios
+      .get(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then((res) => res.data);
+    await axios
+      .put(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+        completed: !curTodo.completed,
+      })
+      .then((res) => {
+        console.log('change sucessfull');
+        return console.log(res.data);
+      });
+    // console.log("change sucessfull");
   };
   deleteTodo(id, e) {
     // console.log('clicked delete with ' + id + ' id' + e);
@@ -37,11 +48,15 @@ class ToDoApp extends React.Component {
       );
   }
   addNewTodo = (title) => {
+    // do khai bao bind this o constructor roi nen co the code ham addNewTodo khong can arrow function: addNewTodo(title){}
     if (title !== '') {
-      const newTodo = {title: title, completed: false};
       axios
-        .post('https://jsonplaceholder.typicode.com/todos', newTodo)
+        .post('https://jsonplaceholder.typicode.com/todos', {
+          title: title,
+          completed: false,
+        })
         .then((res) => {
+          console.log(res.data);
           this.setState({
             todos: [...this.state.todos, res.data],
           });
@@ -75,5 +90,4 @@ class ToDoApp extends React.Component {
     );
   }
 }
-
 export default ToDoApp;
